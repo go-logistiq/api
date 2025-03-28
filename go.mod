@@ -5,6 +5,7 @@ go 1.24.1
 require (
 	github.com/go-raptor/connector/pgx v1.0.4
 	github.com/go-raptor/raptor/v3 v3.4.9
+	github.com/jackc/pgx/v5 v5.7.4
 )
 
 require (
@@ -14,7 +15,6 @@ require (
 	github.com/go-raptor/errs v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.7.4 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/labstack/echo/v4 v4.13.3 // indirect

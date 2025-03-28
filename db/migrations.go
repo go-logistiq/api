@@ -1,9 +1,13 @@
 package db
 
 import (
+	"github.com/go-logistiq/api/db/migrations"
 	"github.com/go-raptor/connector/pgx"
 )
 
 func Migrations() pgx.Migrations {
-	return pgx.Migrations{}
+	return pgx.Migrations{
+		"20250328225258_create_groups":  migrations.CreateGroups{},
+		"20250328231103_create_clients": migrations.CreateClients{},
+	}
 }
