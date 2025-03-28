@@ -1,0 +1,12 @@
+routes:
+  #/api/v1:
+  #  /links:
+  #    /:
+  #      POST: Links.Create
+  #    /:id:
+  #      GET: Links.Get
+  #    /:id/authorize:
+  #      POST: Links.Authorize
+  
+  #/:shortID:
+  #  GET: Links.Redirect
