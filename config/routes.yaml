@@ -1,8 +1,8 @@
 routes:
-  #/api/v1:
-  #  /links:
-  #    /:
-  #      POST: Links.Create
+  /api/v1:
+    /groups:
+      /:
+        GET: Groups.All
   #    /:id:
   #      GET: Links.Get
   #    /:id/authorize:
