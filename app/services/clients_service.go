@@ -33,3 +33,25 @@ func (gs *ClientsService) All() (models.Clients, error) {
 
 	return clients, nil
 }
+
+func (gs *ClientsService) GetBySlug(slug string) (models.Client, error) {
+	rows, err := gs.DB.Conn().(*pgxpool.Pool).
+		Query(context.Background(), sql.GetClientBySlug, slug)
+
+	if err != nil {
+		gs.Log.Error("Error getting client by name", "error", err)
+		return models.Client{}, errs.NewErrorInternal(err.Error())
+	}
+	defer rows.Close()
+
+	client, err := pgx.CollectOneRow(rows, pgx.RowToStructByName[models.Client])
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			return models.Client{}, errs.NewErrorNotFound("Client not found")
+		}
+		gs.Log.Error("Error collecting client", "error", err)
+		return models.Client{}, errs.NewErrorInternal(err.Error())
+	}
+
+	return client, nil
+}

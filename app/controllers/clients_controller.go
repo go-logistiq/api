@@ -18,3 +18,12 @@ func (gc *ClientsController) All(c *raptor.Context) error {
 	}
 	return c.JSONResponse(clients)
 }
+
+func (gc *ClientsController) GetBySlug(c *raptor.Context) error {
+	slug := c.Param("slug")
+	client, err := gc.Clients.GetBySlug(slug)
+	if err != nil {
+		return c.JSONError(err)
+	}
+	return c.JSONResponse(client)
+}
