@@ -16,7 +16,8 @@ func (m CreateGroups) Up(tx pgx.Tx) error {
 	_, err := tx.Exec(context.Background(), `
 		CREATE TABLE groups (
 			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL UNIQUE
+			slug VARCHAR(25) NOT NULL UNIQUE,
+			name VARCHAR(100) NOT NULL
 		)
 	`)
 	if err != nil {

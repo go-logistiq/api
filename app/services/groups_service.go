@@ -33,3 +33,25 @@ func (gs *GroupsService) All() (models.Groups, error) {
 
 	return groups, nil
 }
+
+func (gs *GroupsService) GetBySlug(slug string) (models.Group, error) {
+	rows, err := gs.DB.Conn().(*pgxpool.Pool).
+		Query(context.Background(), sql.GetGroupBySlug, slug)
+
+	if err != nil {
+		gs.Log.Error("Error getting group by name", "error", err)
+		return models.Group{}, errs.NewErrorInternal(err.Error())
+	}
+	defer rows.Close()
+
+	group, err := pgx.CollectOneRow(rows, pgx.RowToStructByName[models.Group])
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			return models.Group{}, errs.NewErrorNotFound("Group not found")
+		}
+		gs.Log.Error("Error collecting group", "error", err)
+		return models.Group{}, errs.NewErrorInternal(err.Error())
+	}
+
+	return group, nil
+}

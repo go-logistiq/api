@@ -18,3 +18,12 @@ func (gc *GroupsController) All(c *raptor.Context) error {
 	}
 	return c.JSONResponse(groups)
 }
+
+func (gc *GroupsController) GetBySlug(c *raptor.Context) error {
+	slug := c.Param("slug")
+	group, err := gc.Groups.GetBySlug(slug)
+	if err != nil {
+		return c.JSONError(err)
+	}
+	return c.JSONResponse(group)
+}

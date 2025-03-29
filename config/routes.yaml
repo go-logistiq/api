@@ -3,6 +3,8 @@ routes:
     /groups:
       /:
         GET: Groups.All
+      /:slug:
+        GET: Groups.GetBySlug
     
     /clients:
       /:

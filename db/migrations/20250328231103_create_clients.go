@@ -16,7 +16,8 @@ func (m CreateClients) Up(tx pgx.Tx) error {
 	_, err := tx.Exec(context.Background(), `
 		CREATE TABLE clients (
 			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL,
+			slug VARCHAR(25) NOT NULL,
+			name VARCHAR(100) NOT NULL,
 			group_id INT NOT NULL,
 			CONSTRAINT fk_group
 				FOREIGN KEY (group_id)
