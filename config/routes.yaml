@@ -3,10 +3,7 @@ routes:
     /groups:
       /:
         GET: Groups.All
-  #    /:id:
-  #      GET: Links.Get
-  #    /:id/authorize:
-  #      POST: Links.Authorize
-  
-  #/:shortID:
-  #  GET: Links.Redirect
+    
+    /clients:
+      /:
+        GET: Clients.All
