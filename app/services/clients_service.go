@@ -13,6 +13,8 @@ import (
 
 type ClientsService struct {
 	raptor.Service
+
+	Groups *GroupsService
 }
 
 func (gs *ClientsService) All() (models.Clients, error) {
@@ -34,9 +36,14 @@ func (gs *ClientsService) All() (models.Clients, error) {
 	return clients, nil
 }
 
-func (gs *ClientsService) GetBySlug(slug string) (models.Client, error) {
+func (gs *ClientsService) GetBySlug(groupSlug, clientSlug string) (models.Client, error) {
+	group, err := gs.Groups.GetBySlug(groupSlug)
+	if err != nil {
+		return models.Client{}, errs.NewErrorNotFound("Group not found")
+	}
+
 	rows, err := gs.DB.Conn().(*pgxpool.Pool).
-		Query(context.Background(), sql.GetClientBySlug, slug)
+		Query(context.Background(), sql.GetClientBySlug, group.ID, clientSlug)
 
 	if err != nil {
 		gs.Log.Error("Error getting client by name", "error", err)

@@ -20,8 +20,9 @@ func (gc *ClientsController) All(c *raptor.Context) error {
 }
 
 func (gc *ClientsController) GetBySlug(c *raptor.Context) error {
-	slug := c.Param("slug")
-	client, err := gc.Clients.GetBySlug(slug)
+	groupSlug := c.Param("group")
+	clientSlug := c.Param("client")
+	client, err := gc.Clients.GetBySlug(groupSlug, clientSlug)
 	if err != nil {
 		return c.JSONError(err)
 	}

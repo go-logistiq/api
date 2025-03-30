@@ -5,9 +5,9 @@ routes:
         GET: Groups.All
       /:slug:
         GET: Groups.GetBySlug
+      /:group/clients/:client:
+        GET: Clients.GetBySlug
     
     /clients:
       /:
         GET: Clients.All
-      /:slug:
-        GET: Clients.GetBySlug

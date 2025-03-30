@@ -7,4 +7,4 @@ const AllClients = `
 const GetClientBySlug = `
 	SELECT id, slug, name, group_id
 	FROM clients
-	WHERE slug = $1`
+	WHERE group_id = $1 AND slug = $2`

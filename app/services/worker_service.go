@@ -10,6 +10,8 @@ import (
 type WorkerService struct {
 	raptor.Service
 
+	Logs *LogsService
+
 	numWorkers  int
 	MessageChan chan *nats.Msg
 	wg          sync.WaitGroup
@@ -49,6 +51,11 @@ func (ws *WorkerService) startWorker() {
 	defer ws.wg.Done()
 
 	for msg := range ws.MessageChan {
-		ws.Log.Info("Processing message", "subject", msg.Subject, "data", string(msg.Data))
+		logs, err := ws.Logs.ParseNATSMessage(msg)
+		if err != nil {
+			ws.Log.Error("failed to parse NATS message", "error", err)
+			continue
+		}
+		ws.Logs.Save(logs)
 	}
 }
