@@ -11,7 +11,7 @@ func Services(utils *raptor.Utils) raptor.Services {
 		services.NewNATSService(utils.Config),
 		services.NewAuthService(utils.Config),
 		&services.GroupsService{},
-		&services.ClientsService{},
+		services.NewClientsService(),
 		&services.LogsService{},
 	}
 }
