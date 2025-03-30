@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/go-logistiq/api/app/models"
 	"github.com/go-raptor/raptor/v3"
@@ -21,18 +20,9 @@ type LogsService struct {
 }
 
 func (ls *LogsService) ParseNATSMessage(msg *nats.Msg) (*models.Logs, error) {
-	subjectParts := strings.Split(msg.Subject, ".")
-	if len(subjectParts) != 3 {
-		return nil, errors.New("invalid subject format")
-	}
-
-	groupSlug := subjectParts[1]
-	clientSlug := subjectParts[2]
-
-	client, err := ls.Clients.GetBySlug(groupSlug, clientSlug)
-	clientID := client.ID
+	clientID, err := ls.Clients.GetIDBySubject(msg.Subject)
 	if err != nil {
-		return nil, errors.New("client not found")
+		return nil, err
 	}
 
 	var logRecords models.LogRecords

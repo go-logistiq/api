@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"strings"
 
 	"github.com/go-logistiq/api/app/models"
 	"github.com/go-logistiq/api/db/sql"
@@ -61,4 +62,22 @@ func (gs *ClientsService) GetBySlug(groupSlug, clientSlug string) (models.Client
 	}
 
 	return client, nil
+}
+
+// GetBySubject retrieves a client by NATS subject like "logs.groupSlug.clientSlug"
+func (gs *ClientsService) GetIDBySubject(subject string) (int, error) {
+	parts := strings.Split(subject, ".")
+	if len(parts) != 3 {
+		return 0, errs.NewErrorBadRequest("Invalid subject format")
+	}
+
+	groupSlug := parts[1]
+	clientSlug := parts[2]
+
+	client, err := gs.GetBySlug(groupSlug, clientSlug)
+	if err != nil {
+		return 0, err
+	}
+
+	return client.ID, nil
 }
