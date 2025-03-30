@@ -1,6 +1,7 @@
 package services
 
 import (
+	"strconv"
 	"sync"
 
 	"github.com/go-raptor/raptor/v3"
@@ -17,7 +18,12 @@ type WorkerService struct {
 	wg          sync.WaitGroup
 }
 
-func NewWorkerService(numWorkers int) *WorkerService {
+func NewWorkerService(c *raptor.Config) *WorkerService {
+	numWorkers, err := strconv.Atoi(c.AppConfig["workers"])
+	if err != nil {
+		numWorkers = 4
+	}
+
 	ws := &WorkerService{
 		numWorkers:  numWorkers,
 		MessageChan: make(chan *nats.Msg, 1000),
