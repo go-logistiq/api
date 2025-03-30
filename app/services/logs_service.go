@@ -19,7 +19,7 @@ type LogsService struct {
 	Clients *ClientsService
 }
 
-func (ls *LogsService) ParseNATSMessage(msg *nats.Msg) (*models.Logs, error) {
+func (ls *LogsService) ParseNATSMessage(msg *nats.Msg) (models.Logs, error) {
 	clientID, err := ls.Clients.GetIDBySubject(msg.Subject)
 	if err != nil {
 		return nil, err
@@ -39,16 +39,16 @@ func (ls *LogsService) ParseNATSMessage(msg *nats.Msg) (*models.Logs, error) {
 		}
 	}
 
-	return &logs, nil
+	return logs, nil
 }
 
-func (ls *LogsService) Save(logs *models.Logs) error {
-	if logs == nil || len(*logs) == 0 {
+func (ls *LogsService) Save(logs models.Logs) error {
+	if len(logs) == 0 {
 		return nil
 	}
 
-	rows := make([][]interface{}, len(*logs))
-	for i, log := range *logs {
+	rows := make([][]interface{}, len(logs))
+	for i, log := range logs {
 		attrs, err := json.Marshal(log.Attributes)
 		if err != nil {
 			ls.Log.Error("Failed to marshal attributes", "error", err, "log_id", log.ID)
@@ -82,6 +82,6 @@ func (ls *LogsService) Save(logs *models.Logs) error {
 		return fmt.Errorf("copy logs: %w", err)
 	}
 
-	ls.Log.Info("Successfully saved logs", "count", len(*logs))
+	ls.Log.Info("Successfully saved logs", "client", logs[0].ClientID, "count", len(logs))
 	return nil
 }

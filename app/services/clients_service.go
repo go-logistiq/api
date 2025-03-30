@@ -78,7 +78,6 @@ func (gs *ClientsService) GetBySlug(groupSlug, clientSlug string) (models.Client
 func (gs *ClientsService) GetIDBySubject(subject string) (int, error) {
 	gs.lock.RLock()
 	if id, ok := gs.clientCache[subject]; ok {
-		gs.Log.Debug("Client ID found in cache", "subject", subject, "id", id)
 		gs.lock.RUnlock()
 		return id, nil
 	}
