@@ -7,9 +7,9 @@ import (
 
 func Services(utils *raptor.Utils) raptor.Services {
 	return raptor.Services{
+		services.NewNATSService(utils.Config),
+		services.NewAuthService(utils.Config),
 		&services.GroupsService{},
 		&services.ClientsService{},
-		services.NewAuthService(utils.Config),
-		services.NewNATSService(utils.Config),
 	}
 }
