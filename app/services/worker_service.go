@@ -37,8 +37,10 @@ func (ws *WorkerService) Init() error {
 }
 
 func (ws *WorkerService) Shutdown() error {
+	ws.Log.Info("Worker service shutting down")
 	close(ws.MessageChan)
 	ws.wg.Wait()
+	ws.Log.Info("Worker service shut down")
 	return nil
 }
 
