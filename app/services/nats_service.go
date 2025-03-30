@@ -1,12 +1,8 @@
 package services
 
 import (
-	"encoding/json"
-	"fmt"
-	"log/slog"
 	"time"
 
-	"github.com/go-logistiq/api/app/models"
 	"github.com/go-raptor/raptor/v3"
 	"github.com/nats-io/nats.go"
 )
@@ -16,6 +12,8 @@ type NATSService struct {
 
 	natsURL  string
 	natsConn *nats.Conn
+
+	Worker *WorkerService
 }
 
 func NewNATSService(c *raptor.Config) *NATSService {
@@ -64,21 +62,8 @@ func (ls *NATSService) Shutdown() error {
 
 func (ls *NATSService) subscribeToLogs() error {
 	_, err := ls.natsConn.Subscribe("logs.*.*", func(msg *nats.Msg) {
-		fmt.Println(msg.Subject)
-		var logEntries []models.LogRecord
-		if err := json.Unmarshal(msg.Data, &logEntries); err != nil {
-			ls.Log.Error("Failed to unmarshal log entries", "error", err)
-			return
-		}
-
-		for _, entry := range logEntries {
-			fmt.Println(entry)
-		}
+		ls.Worker.MessageChan <- msg
 	})
 
-	if err != nil {
-		slog.Error("Failed to subscribe to logs", "error", err)
-	}
-
-	return nil
+	return err
 }
