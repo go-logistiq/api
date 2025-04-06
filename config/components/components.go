@@ -2,7 +2,7 @@ package components
 
 import (
 	"github.com/go-logistiq/api/db"
-	"github.com/go-raptor/connector/pgx"
+	"github.com/go-raptor/connectors/pgx"
 	"github.com/go-raptor/raptor/v3"
 )
 

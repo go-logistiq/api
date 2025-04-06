@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/go-logistiq/api/db/migrations"
-	"github.com/go-raptor/connector/pgx"
+	"github.com/go-raptor/connectors/pgx"
 )
 
 func Migrations() pgx.Migrations {
