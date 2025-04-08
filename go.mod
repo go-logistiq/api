@@ -5,7 +5,7 @@ go 1.24.2
 require (
 	github.com/go-raptor/connectors/pgx v1.0.6
 	github.com/go-raptor/errs v1.0.0
-	github.com/go-raptor/raptor/v3 v3.5.3
+	github.com/go-raptor/raptor/v3 v3.5.5
 	github.com/jackc/pgx/v5 v5.7.4
 	github.com/nats-io/nats.go v1.41.0
 )

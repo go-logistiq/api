@@ -18,6 +18,8 @@ github.com/go-raptor/raptor/v3 v3.5.0 h1:+R7camqPuPkJ1zjiKAM1+K2IL40Rp/TBgHYL2qy
 github.com/go-raptor/raptor/v3 v3.5.0/go.mod h1:2kOHfOxeasOYP8OSqYGu0BkOsNfjWqqbTIrgqcboJvs=
 github.com/go-raptor/raptor/v3 v3.5.3 h1:9pvOEMNrfhPLiM32p+V54+GN+vF0SstZhkOuj5V6rU8=
 github.com/go-raptor/raptor/v3 v3.5.3/go.mod h1:mos6zjVgyc/05sBD7kPQ8xDr+LzgeS44j/PrTbhm2bE=
+github.com/go-raptor/raptor/v3 v3.5.5 h1:Nd0rEBKjgIDkr8FBWIqhBskGs62jk77o11GVpqs/nOk=
+github.com/go-raptor/raptor/v3 v3.5.5/go.mod h1:mos6zjVgyc/05sBD7kPQ8xDr+LzgeS44j/PrTbhm2bE=
 github.com/jackc/pgpassfile v1.0.0 h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
 github.com/jackc/pgpassfile v1.0.0/go.mod h1:CEx0iS5ambNFdcRtxPj5JhEz+xB6uRky5eyVu/W2HEg=
 github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 h1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=
