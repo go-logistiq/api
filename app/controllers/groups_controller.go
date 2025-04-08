@@ -11,19 +11,19 @@ type GroupsController struct {
 	Groups *services.GroupsService
 }
 
-func (gc *GroupsController) All(c *raptor.Context) error {
+func (gc *GroupsController) All(s raptor.State) error {
 	groups, err := gc.Groups.All()
 	if err != nil {
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
-	return c.JSONResponse(groups)
+	return s.JSONResponse(groups)
 }
 
-func (gc *GroupsController) GetBySlug(c *raptor.Context) error {
-	slug := c.Param("slug")
+func (gc *GroupsController) GetBySlug(s raptor.State) error {
+	slug := s.Param("slug")
 	group, err := gc.Groups.GetBySlug(slug)
 	if err != nil {
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
-	return c.JSONResponse(group)
+	return s.JSONResponse(group)
 }

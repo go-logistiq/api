@@ -11,20 +11,20 @@ type ClientsController struct {
 	Clients *services.ClientsService
 }
 
-func (gc *ClientsController) All(c *raptor.Context) error {
+func (gc *ClientsController) All(s raptor.State) error {
 	clients, err := gc.Clients.All()
 	if err != nil {
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
-	return c.JSONResponse(clients)
+	return s.JSONResponse(clients)
 }
 
-func (gc *ClientsController) GetBySlug(c *raptor.Context) error {
-	groupSlug := c.Param("group")
-	clientSlug := c.Param("client")
+func (gc *ClientsController) GetBySlug(s raptor.State) error {
+	groupSlug := s.Param("group")
+	clientSlug := s.Param("client")
 	client, err := gc.Clients.GetBySlug(groupSlug, clientSlug)
 	if err != nil {
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
-	return c.JSONResponse(client)
+	return s.JSONResponse(client)
 }

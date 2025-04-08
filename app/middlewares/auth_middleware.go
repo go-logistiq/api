@@ -14,26 +14,26 @@ type AuthMiddleware struct {
 	Auth *services.AuthService
 }
 
-func (am *AuthMiddleware) New(c *raptor.Context, next func(*raptor.Context) error) error {
-	authHeader := c.Request().Header.Get("Authorization")
+func (am *AuthMiddleware) New(s raptor.State, next func(raptor.State) error) error {
+	authHeader := s.Request().Header.Get("Authorization")
 	if authHeader == "" {
-		am.Log.Debug("Missing auth header", "ip", c.RealIP())
+		am.Log.Debug("Missing auth header", "ip", s.RealIP())
 		err := errs.NewErrorUnauthorized("Missing auth header")
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
 
 	parts := strings.Split(authHeader, " ")
 	if len(parts) != 2 || parts[0] != "Bearer" {
-		am.Log.Debug("Invalid auth header", "ip", c.RealIP())
+		am.Log.Debug("Invalid auth header", "ip", s.RealIP())
 		err := errs.NewErrorUnauthorized("Invalid auth header")
-		c.JSONError(err)
+		s.JSONError(err)
 	}
 
 	if authKey := parts[1]; authKey != am.Auth.Token {
-		am.Log.Debug("Invalid auth token", "ip", c.RealIP())
+		am.Log.Debug("Invalid auth token", "ip", s.RealIP())
 		err := errs.NewErrorUnauthorized("Invalid auth token")
-		return c.JSONError(err)
+		return s.JSONError(err)
 	}
 
-	return next(c)
+	return next(s)
 }
