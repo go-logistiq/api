@@ -7,7 +7,7 @@ require (
 	github.com/go-raptor/errs v1.0.0
 	github.com/go-raptor/raptor/v3 v3.5.5
 	github.com/jackc/pgx/v5 v5.7.4
-	github.com/nats-io/nats.go v1.41.0
+	github.com/nats-io/nats.go v1.41.1
 )
 
 require (
