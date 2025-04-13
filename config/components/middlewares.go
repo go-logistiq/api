@@ -8,6 +8,6 @@ import (
 
 func Middlewares(utils *raptor.Utils) raptor.Middlewares {
 	return raptor.Middlewares{
-		core.Use(&middlewares.AuthMiddleware{}),
+		core.UseExcept(&middlewares.AuthMiddleware{}, "Auth.Login"),
 	}
 }

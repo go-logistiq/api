@@ -1,5 +1,8 @@
 routes:
   /api/v1:
+    /auth:
+      /login:
+        POST: Auth.Login
     /groups:
       /:
         GET: Groups.All
