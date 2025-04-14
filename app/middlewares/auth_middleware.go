@@ -18,21 +18,18 @@ func (am *AuthMiddleware) New(s raptor.State, next func(raptor.State) error) err
 	authHeader := s.Request().Header.Get("Authorization")
 	if authHeader == "" {
 		am.Log.Debug("Missing auth header", "ip", s.RealIP())
-		err := errs.NewErrorUnauthorized("Missing auth header")
-		return s.JSONError(err)
+		return errs.NewErrorUnauthorized("Missing auth header")
 	}
 
 	parts := strings.Split(authHeader, " ")
 	if len(parts) != 2 || parts[0] != "Bearer" {
 		am.Log.Debug("Invalid auth header", "ip", s.RealIP())
-		err := errs.NewErrorUnauthorized("Invalid auth header")
-		s.JSONError(err)
+		return errs.NewErrorUnauthorized("Invalid auth header")
 	}
 
 	if authKey := parts[1]; authKey != am.Auth.Token {
 		am.Log.Debug("Invalid auth token", "ip", s.RealIP())
-		err := errs.NewErrorUnauthorized("Invalid auth token")
-		return s.JSONError(err)
+		return errs.NewErrorUnauthorized("Invalid auth token")
 	}
 
 	return next(s)

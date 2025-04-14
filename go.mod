@@ -4,15 +4,15 @@ go 1.24.2
 
 require (
 	github.com/go-raptor/connectors/pgx v1.0.6
-	github.com/go-raptor/errs v1.0.0
-	github.com/go-raptor/raptor/v3 v3.5.5
+	github.com/go-raptor/errs v1.0.1
+	github.com/go-raptor/raptor/v3 v3.5.6
 	github.com/jackc/pgx/v5 v5.7.4
 	github.com/nats-io/nats.go v1.41.1
 )
 
 require (
-	github.com/go-raptor/components v1.1.2 // indirect
-	github.com/go-raptor/config v1.0.1 // indirect
+	github.com/go-raptor/components v1.1.3 // indirect
+	github.com/go-raptor/config v1.0.2 // indirect
 	github.com/go-raptor/connectors v1.0.2 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect

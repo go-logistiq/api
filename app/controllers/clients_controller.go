@@ -14,7 +14,7 @@ type ClientsController struct {
 func (gc *ClientsController) All(s raptor.State) error {
 	clients, err := gc.Clients.All()
 	if err != nil {
-		return s.JSONError(err)
+		return err
 	}
 	return s.JSONResponse(clients)
 }
@@ -24,7 +24,7 @@ func (gc *ClientsController) GetBySlug(s raptor.State) error {
 	clientSlug := s.Param("client")
 	client, err := gc.Clients.GetBySlug(groupSlug, clientSlug)
 	if err != nil {
-		return s.JSONError(err)
+		return err
 	}
 	return s.JSONResponse(client)
 }
