@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/go-logistiq/api/app/models"
 	"github.com/go-logistiq/api/app/services"
-	"github.com/go-raptor/errs"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
+	"github.com/go-raptor/raptor/v4/errs"
 )
 
 type AuthController struct {
@@ -13,9 +13,9 @@ type AuthController struct {
 	Auth *services.AuthService
 }
 
-func (ac *AuthController) Login(s raptor.State) error {
+func (ac *AuthController) Login(c *raptor.Context) error {
 	var user models.User
-	if err := s.Bind(&user); err != nil {
+	if err := c.Bind(&user); err != nil {
 		return errs.NewErrorBadRequest("Invalid request body")
 	}
 
@@ -24,5 +24,5 @@ func (ac *AuthController) Login(s raptor.State) error {
 		return errs.NewErrorUnauthorized("Invalid credentials")
 	}
 
-	return s.JSONResponse(user)
+	return c.Data(user)
 }

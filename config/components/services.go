@@ -2,14 +2,14 @@ package components
 
 import (
 	"github.com/go-logistiq/api/app/services"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 )
 
-func Services(utils *raptor.Utils) raptor.Services {
+func Services(c *raptor.Config) raptor.Services {
 	return raptor.Services{
-		services.NewWorkerService(utils.Config),
-		services.NewNATSService(utils.Config),
-		services.NewAuthService(utils.Config),
+		services.NewWorkerService(c),
+		services.NewNATSService(c),
+		services.NewAuthService(c),
 		&services.GroupsService{},
 		services.NewClientsService(),
 		&services.LogsService{},

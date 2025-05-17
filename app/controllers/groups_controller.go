@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/go-logistiq/api/app/services"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 )
 
 type GroupsController struct {
@@ -11,19 +11,19 @@ type GroupsController struct {
 	Groups *services.GroupsService
 }
 
-func (gc *GroupsController) All(s raptor.State) error {
+func (gc *GroupsController) All(c *raptor.Context) error {
 	groups, err := gc.Groups.All()
 	if err != nil {
 		return err
 	}
-	return s.JSONResponse(groups)
+	return c.Data(groups)
 }
 
-func (gc *GroupsController) GetBySlug(s raptor.State) error {
-	slug := s.Param("slug")
+func (gc *GroupsController) GetBySlug(c *raptor.Context) error {
+	slug := c.Param("slug")
 	group, err := gc.Groups.GetBySlug(slug)
 	if err != nil {
 		return err
 	}
-	return s.JSONResponse(group)
+	return c.Data(group)
 }

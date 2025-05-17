@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/go-logistiq/api/app/models"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/nats-io/nats.go"

@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 	"github.com/nats-io/nats.go"
 )
 
@@ -29,13 +29,11 @@ func NewWorkerService(c *raptor.Config) *WorkerService {
 		MessageChan: make(chan *nats.Msg, 1000),
 	}
 
-	ws.OnInit(ws.Init)
-	ws.OnShutdown(ws.Shutdown)
-
 	return ws
 }
 
-func (ws *WorkerService) Init() error {
+func (ws *WorkerService) Init(r *raptor.Resources) error {
+	ws.Resources = r
 	for i := 0; i < ws.numWorkers; i++ {
 		go ws.startWorker()
 	}

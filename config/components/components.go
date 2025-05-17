@@ -3,14 +3,14 @@ package components
 import (
 	"github.com/go-logistiq/api/db"
 	"github.com/go-raptor/connectors/pgx"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 )
 
-func New(utils *raptor.Utils) *raptor.Components {
+func New(c *raptor.Config) *raptor.Components {
 	return &raptor.Components{
-		DatabaseConnector: pgx.NewPgxConnector(utils.Config.DatabaseConfig, db.Migrations()),
+		DatabaseConnector: pgx.NewPgxConnector(c.DatabaseConfig, db.Migrations()),
 		Controllers:       Controllers(),
-		Services:          Services(utils),
-		Middlewares:       Middlewares(utils),
+		Services:          Services(c),
+		Middlewares:       Middlewares(c),
 	}
 }

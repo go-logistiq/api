@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-logistiq/api/app/models"
 	"github.com/go-logistiq/api/db/sql"
-	"github.com/go-raptor/errs"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
+	"github.com/go-raptor/raptor/v4/errs"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )

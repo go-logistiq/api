@@ -3,7 +3,7 @@ package services
 import (
 	"time"
 
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 	"github.com/nats-io/nats.go"
 )
 
@@ -26,13 +26,11 @@ func NewNATSService(c *raptor.Config) *NATSService {
 		natsURL: natsURL,
 	}
 
-	ns.OnInit(ns.Init)
-	ns.OnShutdown(ns.Shutdown)
-
 	return ns
 }
 
-func (ns *NATSService) Init() error {
+func (ns *NATSService) Init(r *raptor.Resources) error {
+	ns.Resources = r
 	var err error
 	ns.natsConn, err = nats.Connect(ns.natsURL,
 		nats.MaxReconnects(-1),

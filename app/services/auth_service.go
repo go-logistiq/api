@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/go-logistiq/api/app/models"
-	"github.com/go-raptor/raptor/v3"
+	"github.com/go-raptor/raptor/v4"
 )
 
 type AuthService struct {
