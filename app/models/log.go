@@ -17,3 +17,22 @@ type Log struct {
 
 	LogRecord
 }
+
+var LogDBColumns = []string{
+	"logs.id",
+	"logs.client_id",
+	"logs.level",
+	"logs.logged_at",
+	"logs.message",
+	"logs.attributes",
+}
+
+func (l *Log) ToMap() map[string]interface{} {
+	return map[string]interface{}{
+		"client_id":  l.ClientID,
+		"level":      l.Level,
+		"logged_at":  l.LoggedAt,
+		"message":    l.Message,
+		"attributes": l.Attributes,
+	}
+}

@@ -9,7 +9,6 @@ import (
 	"github.com/go-logistiq/api/app/models"
 	"github.com/go-raptor/raptor/v4"
 	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/nats-io/nats.go"
 )
 
@@ -17,6 +16,7 @@ type LogsService struct {
 	raptor.Service
 
 	Clients *ClientsService
+	DB      *DatabaseService
 }
 
 func (ls *LogsService) ParseNATSMessage(msg *nats.Msg) (models.Logs, error) {
@@ -64,7 +64,7 @@ func (ls *LogsService) Save(logs models.Logs) error {
 		}
 	}
 
-	_, err := ls.DB.Conn().(*pgxpool.Pool).
+	_, err := ls.DB.Conn().
 		CopyFrom(
 			context.Background(),
 			pgx.Identifier{"logs"},
