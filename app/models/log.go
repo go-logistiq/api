@@ -19,12 +19,12 @@ type Log struct {
 }
 
 var LogDBColumns = []string{
-	"logs.id",
-	"logs.client_id",
-	"logs.level",
-	"logs.logged_at",
-	"logs.message",
-	"logs.attributes",
+	"id",
+	"client_id",
+	"level",
+	"logged_at",
+	"message",
+	"attributes",
 }
 
 func (l *Log) ToMap() map[string]interface{} {
