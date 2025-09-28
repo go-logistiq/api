@@ -21,10 +21,3 @@ func GetClientBySlug(groupID int, slug string) sq.SelectBuilder {
 			"slug":     slug},
 		)
 }
-
-func GetClientByID(id int) sq.SelectBuilder {
-	return psql.
-		Select(models.ClientDBColumns...).
-		From("clients").
-		Where(sq.Eq{"id": id})
-}
