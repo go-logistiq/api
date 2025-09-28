@@ -36,3 +36,13 @@ func (l *Log) ToMap() map[string]interface{} {
 		"attributes": l.Attributes,
 	}
 }
+
+func (l Log) ToSlice() []interface{} {
+	return []interface{}{
+		l.ClientID,
+		l.Level,
+		l.LoggedAt,
+		l.Message,
+		l.Attributes,
+	}
+}

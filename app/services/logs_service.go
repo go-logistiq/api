@@ -49,32 +49,14 @@ func (ls *LogsService) Save(logs models.Logs) error {
 
 	rows := make([][]interface{}, len(logs))
 	for i, log := range logs {
-		attrs, err := json.Marshal(log.Attributes)
-		if err != nil {
-			ls.Log.Error("Failed to marshal attributes", "error", err, "log_id", log.ID)
-			return fmt.Errorf("marshal attributes: %w", err)
-		}
-
-		rows[i] = []interface{}{
-			log.ClientID,
-			log.Level,
-			log.LoggedAt,
-			log.Message,
-			attrs,
-		}
+		rows[i] = log.ToSlice()
 	}
 
 	_, err := ls.DB.Conn().
 		CopyFrom(
 			context.Background(),
 			pgx.Identifier{"logs"},
-			[]string{
-				"client_id",
-				"level",
-				"logged_at",
-				"message",
-				"attributes",
-			},
+			models.LogDBColumns[1:],
 			pgx.CopyFromRows(rows),
 		)
 	if err != nil {
