@@ -13,5 +13,6 @@ func Services(c *raptor.Config) raptor.Services {
 		&services.GroupsService{},
 		services.NewClientsService(),
 		&services.LogsService{},
+		&services.DatabaseService{},
 	}
 }
